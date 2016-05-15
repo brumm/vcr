@@ -1,4 +1,4 @@
-.container {
+.Titlebar {
   height: 38px;
   padding: 0 10px;
   background-color: #fafafa;
@@ -10,4 +10,14 @@
   );
   border-bottom: 1px solid #afafaf;
   font-size: 13px;
+}
+
+.TitlebarUnfocused {
+  composes: Titlebar;
+  background-image: linear-gradient(top,
+    #fafafa 0px,
+    #f6f6f6 2px,
+    #f6f6f6 100%
+  );
+  border-bottom-color: #d1d1d1;
 }

@@ -1,12 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import Flex from 'flex-component'
 
 import Titlebar from 'components/Titlebar'
 import style from './App.scss'
 
-export default React.createClass({
-  render() {
-    return <div className={style.container}>
-      <Titlebar />
-    </div>
+@connect(({ windowState: { isFocused }}) => ({ isFocused }))
+export default class App extends React.Component {
+  render () {
+    return (
+      <Flex className={style.container} direction='column'>
+        <Titlebar
+          isFocused={this.props.isFocused}
+        />
+      </Flex>
+    )
   }
-})
+}

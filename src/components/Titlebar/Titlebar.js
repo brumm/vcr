@@ -1,6 +1,13 @@
 import React from 'react'
-import style from './Titlebar.scss'
+import Flex from 'flex-component'
+import { Titlebar, TitlebarUnfocused } from './Titlebar.scss'
 
 export default props => (
-  <div className={style.container} />
+  <Flex
+    className={props.isFocused ? Titlebar : TitlebarUnfocused}
+    alignItems='center'
+    justifyContent='center'
+  >
+    {props.title}
+  </Flex>
 )
