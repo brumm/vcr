@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 
 import reducers from './reducers'
-const loggerMiddleware = createLogger({ collapsed: false })
+const loggerMiddleware = createLogger({ collapsed: true })
 const rootReducer = combineReducers(reducers)
 
 export default function configureStore(initialState) {
