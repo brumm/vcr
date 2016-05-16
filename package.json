@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "nwb build && babel electron/ -o dist/index.js && npm run package",
-    "watch-electron-main": "nwb build && babel electron/ -o dist/index.js -w",
+    "watch-electron-main": "babel main -d dist -w",
     "clean": "nwb clean",
     "start": "node dev-server.js --run-electron",
     "test": "nwb test",
