@@ -15,29 +15,27 @@ module.exports = {
 
   webpack: {
     extra: {
-      // entry: path.resolve('./src/index.js'),
+      entry: path.resolve('./src/index.js'),
       resolve: {
         root: [path.resolve('./src')],
         extensions: ["", ".webpack.js", ".web.js", ".js", ".scss"]
+      },
+      output: {
+        publicPath: ''
       },
       plugins: [
         new webpack.ResolverPlugin([
           new ComponentResolverPlugin()
         ])
       ],
-      output: {
-        publicPath: ''
-      }
+    },
+    html: {
+      template: path.resolve('./src/index.html'),
+      title: package.name
     },
     loaders: {
       'css': cssConfig,
       'sass-css': cssConfig
-    },
-    plugins: {
-      html: {
-        template: path.resolve('./src/index.html'),
-        title: package.name
-      }
     }
   },
 
