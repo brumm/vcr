@@ -2,7 +2,7 @@
   height: 38px;
   padding: 0 10px;
   background-color: #fafafa;
-  background-image: linear-gradient(top,
+  background-image: linear-gradient(
     #ededed 0,
     #ededed 1px,
     #e7e7e7 2px,
@@ -14,7 +14,7 @@
 
 .TitlebarUnfocused {
   composes: Titlebar;
-  background-image: linear-gradient(top,
+  background-image: linear-gradient(
     #fafafa 0px,
     #f6f6f6 2px,
     #f6f6f6 100%
