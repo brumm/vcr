@@ -15,7 +15,6 @@ module.exports = {
 
   webpack: {
     extra: {
-      entry: path.resolve('./src/index.js'),
       resolve: {
         root: [path.resolve('./src')],
         extensions: ["", ".webpack.js", ".web.js", ".js", ".scss"]
