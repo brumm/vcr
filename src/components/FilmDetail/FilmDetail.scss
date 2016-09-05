@@ -1,0 +1,59 @@
+@import "~variables";
+
+$height: $poster-width * $poster-ratio;
+
+.Container {
+  position: relative;
+  width: 100vw;
+  min-height: $height;
+  margin: $item-margin 0 $item-margin * 2;
+  background-color: #000;
+  box-shadow: 0 0 20px black;
+}
+
+.Title {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: $item-margin * 2;
+  overflow: visible;
+}
+
+.Description {
+  width: $poster-width * 1.5;
+  padding: $item-margin * 2;
+  color: silver;
+}
+
+.Text {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.Slider {
+  position: absolute;
+  top: 0; right: 0;
+  bottom: 0;
+  left: $poster-width * 1.5;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100px;
+    background-image:
+      linear-gradient(
+        to right,
+        black,
+        transparent
+      );
+  }
+}
+
+.Image {
+  width: calc(100vw - 360px);
+  height: $height;
+  object-fit: cover;
+  object-position: center 10%;
+}

@@ -1,22 +1,33 @@
-
-import {
-  app,
-  BrowserWindow,
-  Menu,
-  screen,
-  ipcMain
-} from 'electron'
-import template from './menu-template.js'
+import { app, BrowserWindow, Menu, screen } from 'electron'
+import template from './menu-template'
 import windowStateKeeper from 'electron-window-state'
+
+import irpc from 'electron-irpc'
+
+import decrypt from './decrypt'
+import redirector from './redirector'
 
 const { DEV, PORT = '8080' } = process.env
 const windowUrl = DEV
   ? `http://0.0.0.0:${PORT}/`
   : 'file://' + __dirname + '/index.html'
+const irpcMain = irpc.main()
 
 let mainWindow
 
+irpcMain.addFunction('decrypt-blob', (blob, callback) => (
+  callback(null, decrypt(blob))
+))
+
+irpcMain.addFunction('redirector', (url, callback) => {
+  redirector(url).then(result => callback(null, result))
+})
+
 function createWindow () {
+  Menu.setApplicationMenu(
+    Menu.buildFromTemplate(template)
+  )
+
   let { width, height } = screen.getPrimaryDisplay().workAreaSize
   let mainWindowState = windowStateKeeper({
     defaultWidth: width * 0.9,
@@ -28,9 +39,10 @@ function createWindow () {
     height: mainWindowState.height,
     x: mainWindowState.x,
     y: mainWindowState.y,
+    backgroundColor: '#161616',
     minWidth: 1000,
     minHeight: 700,
-    titleBarStyle: 'hidden-inset',
+    frame: false,
     webPreferences: {
       webSecurity: false
     },
@@ -39,16 +51,14 @@ function createWindow () {
 
   mainWindowState.manage(mainWindow)
   mainWindow.loadURL(windowUrl)
-  if (DEV) {
-    mainWindow.webContents.openDevTools()
-  }
+
+  if (DEV) { mainWindow.webContents.openDevTools() }
+
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 
-  mainWindow.webContents.on('did-finish-load', () => mainWindow.show())
-  mainWindow.on('blur', () => mainWindow.webContents.send('window-blur'))
-  mainWindow.on('focus', () => mainWindow.webContents.send('window-focus'))
+  mainWindow.once('ready-to-show', () => mainWindow.show())
 }
 
 app.on('ready', createWindow)

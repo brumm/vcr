@@ -1,0 +1,50 @@
+@import "~variables";
+
+.Container {
+  border-radius: 3px;
+  position: relative;
+  box-shadow: 0 0 10px black;
+
+  &::after {
+    border-radius: inherit;
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  }
+}
+
+.ContainerActive {
+  composes: Container;
+  box-shadow:
+    0 0 0 1px black,
+    0 0 0 4px $highlight-color,
+    0 0 10px black;
+  overflow: visible;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      border-radius: 5px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background-image:
+        linear-gradient(
+          to top left,
+          $highlight-color 50%,
+          transparent 50%
+        );
+      margin-top: 1px;
+      padding: 13px;
+      z-index: 1;
+    }
+}
+
+.Poster {
+  object-fit: cover;
+  width: $poster-width;
+  height: $poster-width * $poster-ratio;
+}

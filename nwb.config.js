@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const package = require('./package.json');
 const ComponentResolverPlugin = require('component-resolver-webpack');
+const webpackTargetElectronRenderer = require('webpack-target-electron-renderer');
 
 const cssConfig = {
   query: {
@@ -10,7 +11,7 @@ const cssConfig = {
   }
 }
 
-module.exports = {
+var options = {
   type: 'react-app',
 
   webpack: {
@@ -42,3 +43,7 @@ module.exports = {
     stage: 0
   }
 }
+
+options.webpack.extra.target = webpackTargetElectronRenderer(options.webpack.extra);
+
+module.exports = options;

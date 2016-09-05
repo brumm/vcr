@@ -1,23 +1,74 @@
-.Titlebar {
+@import "~variables";
+
+.Container {
+  -webkit-app-region: drag;
   height: 38px;
-  padding: 0 10px;
-  background-color: #fafafa;
-  background-image: linear-gradient(
-    #ededed 0,
-    #ededed 1px,
-    #e7e7e7 2px,
-    #d1d1d1 100%
-  );
-  border-bottom: 1px solid #afafaf;
-  font-size: 13px;
+  padding: 0 $item-margin * 2;
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0)
+    );
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid #0e0e0e;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+  transition: all 1s linear;
 }
 
-.TitlebarUnfocused {
-  composes: Titlebar;
-  background-image: linear-gradient(
-    #fafafa 0px,
-    #f6f6f6 2px,
-    #f6f6f6 100%
+.ContainerFloating {
+  composes: Container;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-bottom: none;
+  background-image: none;
+  box-shadow: none;
+  position: absolute;
+  color: rgba(255, 255, 255, 0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.controls {
+  height: 100%;
+}
+
+.search {
+  width: $poster-width;
+  -webkit-app-region: no-drag;
+  color: $highlight-color;
+  padding: 0 10px;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05),
+    1px 1px 3px rgba(0, 0, 0, 0.3) inset;
+
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 100px;
+
+  &::-webkit-input-placeholder {
+    color: $darker-highlight-color;
+  }
+}
+
+.trafficLight {
+  width: 13px;
+  height: 13px;
+  border-radius: 12px;
+  background-color: #292929;
+  background-image: radial-gradient(
+    circle at 50% 70%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.1)
   );
-  border-bottom-color: #d1d1d1;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 1px 0 rgba(255, 255, 255, 0.1) inset;
+
+  & + & {
+    margin-left: 6px;
+  }
 }

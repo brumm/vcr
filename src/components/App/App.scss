@@ -2,5 +2,13 @@
 .container {
   width: 100vw;
   height: 100vh;
-  background-color: #ECECEC;
+  background-color: #161616;
+  background-image: url(noise.png);
+  transition: background-color 1s linear;
+  font-size: 14px;
+}
+
+.containerVideoMode {
+  composes: container;
+  background-color: #000;
 }
