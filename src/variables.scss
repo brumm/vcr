@@ -1,0 +1,17 @@
+$poster-width: 240px;
+$item-margin: 10px;
+$poster-ratio: 1.5;
+
+$highlight-color: gold;
+$darker-highlight-color: darken($highlight-color, 30%);
+
+@function strip-units($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+:export {
+  highlightColor: $highlight-color;
+  darkerHighlightColor: $darker-highlight-color;
+  posterWidth: strip-units($poster-width);
+  itemMargin: strip-units($item-margin);
+}

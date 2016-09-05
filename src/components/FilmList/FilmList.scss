@@ -1,0 +1,36 @@
+@import "~variables";
+
+.Container {
+  overflow-y: auto;
+  will-change: scroll-position;
+}
+
+.Row {
+  box-sizing: content-box;
+  padding: $item-margin * 2 $item-margin;
+}
+
+.MovieItem {
+  display: flex;
+  flex-shrink: 0;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 $item-margin;
+  overflow: visible;
+}
+
+.MovieItemActive {
+  composes: MovieItem;
+}
+
+.Title {
+  .ellipsis {
+    max-width: $poster-width;
+    text-overflow: ellipsis;
+    padding: 0 $item-margin;
+  }
+  white-space: nowrap;
+  height: 40px;
+  color: #545454;
+}
