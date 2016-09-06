@@ -30,7 +30,7 @@ export default class WatchPage extends React.Component {
             const parser = parserDictionary[parseType]
 
             return parseLink(url, parser).catch(error => {
-              hashHistory.push(`/watch/${chapterId}/${+sourceIndex + 1}`)
+              hashHistory.replace(`/watch/${chapterId}/${+sourceIndex + 1}`)
             })
           })
           .then(url => ({
