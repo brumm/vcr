@@ -8,11 +8,11 @@ import AsyncProps from 'async-props'
 
 import page from 'utils/page'
 
-import App    from 'components/App'
+import App        from 'components/App'
 import BrowsePage from 'components/BrowsePage'
 import SearchPage from 'components/SearchPage'
-import WatchPage from 'components/WatchPage'
-import FilmDetail  from 'components/FilmDetail'
+import WatchPage  from 'components/WatchPage'
+import FilmDetail from 'components/FilmDetail'
 
 hashHistory.listen(({ pathname }) => console.info('[location]', pathname))
 
