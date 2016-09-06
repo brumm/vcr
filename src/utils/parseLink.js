@@ -24,11 +24,11 @@ const DecodeType = {
   // URL_DECODE
   1: url => Promise.resolve(decodeURIComponent(url)),
 
-  // ESCAPTE_HTML
+  // ESCAPE_HTML
   2: url => Promise.resolve(escape(url)),
 
-  // ESCAPTE_HTML_NUMBER
-  3: url => console.error('ESCAPTE_HTML_NUMBER', url),
+  // ESCAPE_HTML_NUMBER
+  3: url => console.error('ESCAPE_HTML_NUMBER', url),
 
   // URL_ENCODE
   4: url => Promise.resolve(encodeURI(url)),
