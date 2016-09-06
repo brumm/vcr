@@ -5,6 +5,11 @@ const API_BASE = 'http://qazwsxedcrfvtgb.info/cbox'
 // const API_BASE = 'http://167.114.102.196/cbox'
 // const API_BASE = 'http://playboxhd.com/api/box'
 
+const transformParserArray = (accumulator, {t: id, p: parser}) => {
+  accumulator[id] = parser
+  return accumulator
+}
+
 const get = (urlSearchParams) => {
   urlSearchParams.set('os', 'ios')
   urlSearchParams.set('a', 'app0')
@@ -21,7 +26,11 @@ const get = (urlSearchParams) => {
     if (isEmpty(data)) {
       return Promise.reject('Empty response')
     } else {
-      decryptBlob(cf).then(config => window.CONFIG = JSON.parse(config))
+      decryptBlob(cf)
+        .then(config => (
+          window.parserDictionary = JSON.parse(config).pd
+            .reduce(transformParserArray, {})
+        ))
       return data
     }
   })
