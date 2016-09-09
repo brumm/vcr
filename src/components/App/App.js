@@ -1,13 +1,12 @@
 import React from 'react'
 import Flex from 'flex-component'
-import { Link } from 'react-router'
 
 import Titlebar from 'components/Titlebar'
+import Categories from 'components/Categories'
 
-import { highlightColor, darkerHighlightColor } from 'variables.scss'
 import style from './App.scss'
 
-const TYPES = [
+const CATEGORIES = [
   { title: 'Movies', id: 'movie' },
   { title: 'Shows', id: 'show' },
   { title: 'Cartoons', id: 'cartoon' },
@@ -22,16 +21,9 @@ export default class App extends React.Component {
 
     return (
       <Flex className={isWatching ? style.containerVideoMode : style.container} direction='column'>
-        {!isWatching && <Titlebar title={
-          TYPES.map(type => (
-            <Link
-              to={`/browse/${type.id}`}
-              key={type.id}
-              style={{ margin: '0 10px', color: darkerHighlightColor }}
-              activeStyle={{ color: highlightColor }}
-            >{type.title}</Link>
-          ))
-        } />}
+        {!isWatching && <Titlebar
+          center={!isSearching && <Categories items={CATEGORIES} />}
+        />}
 
         {children}
       </Flex>
