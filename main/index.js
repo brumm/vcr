@@ -42,6 +42,7 @@ function createWindow () {
     backgroundColor: '#161616',
     minWidth: 1000,
     minHeight: 700,
+    acceptFirstMouse: true,
     frame: false,
     webPreferences: {
       webSecurity: false
