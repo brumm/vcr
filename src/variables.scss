@@ -11,7 +11,6 @@ $darker-highlight-color: darken($highlight-color, 30%);
 
 :export {
   highlightColor: $highlight-color;
-  darkerHighlightColor: $darker-highlight-color;
   posterWidth: strip-units($poster-width);
   itemMargin: strip-units($item-margin);
 }
