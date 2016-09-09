@@ -25,6 +25,7 @@
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-html5video": "^1.2.12",
+    "react-icons": "^2.2.1",
     "react-router": "^2.6.1",
     "react-slick": "^0.13.1",
     "scroll-iv": "^1.0.2"

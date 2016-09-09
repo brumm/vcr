@@ -1,14 +1,16 @@
 @import "~variables";
 
-$height: $poster-width * $poster-ratio;
+$height: $poster-width * $poster-ratio + 50;
 
 .Container {
   position: relative;
   width: 100vw;
-  min-height: $height;
+  height: $height;
+  max-height: $height + 100;
   margin: $item-margin 0 $item-margin * 2;
   background-color: #000;
   box-shadow: 0 0 20px black;
+  color: silver;
 }
 
 .Title {
@@ -21,7 +23,11 @@ $height: $poster-width * $poster-ratio;
 .Description {
   width: $poster-width * 1.5;
   padding: $item-margin * 2;
-  color: silver;
+}
+
+.Episodes {
+  margin: $item-margin * 2;
+  overflow-y: auto;
 }
 
 .Text {
@@ -49,11 +55,49 @@ $height: $poster-width * $poster-ratio;
         transparent
       );
   }
+
+  :global(.slick-slider) {
+    margin-bottom: 0;
+  }
+
 }
 
 .Image {
   width: calc(100vw - 360px);
   height: $height;
-  object-fit: cover;
-  object-position: center 10%;
+  object-fit: contain;
+  // object-position: center 10%;
+}
+
+.closeIcon {
+  color: white;
+  z-index: 999;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+}
+
+.playLink {
+  z-index: 998;
+  display: block;
+  position: absolute;
+  top: 0; right: 0;
+  bottom: 0; left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover .playIcon {
+    width: 110px;
+    height: 110px;
+  }
+
+}
+
+.playIcon {
+  color: $highlight-color;
+  width: 100px;
+  height: 100px;
 }

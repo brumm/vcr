@@ -1,2 +1,9 @@
 @import "reset";
 @import "defaults";
+
+:global {
+  svg {
+    width: 100%;
+    height: auto;
+  }
+}

@@ -16,7 +16,13 @@ export default class BrowsePage extends React.Component {
   )
 
   render() {
-    const { children, films, more, filmType, params: { filmId } } = this.props
+    const {
+      children,
+      filmType,
+      films,
+      more,
+      params: { filmId }
+    } = this.props
 
     return (
       <FilmList

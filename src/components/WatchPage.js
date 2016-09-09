@@ -21,8 +21,8 @@ export default class WatchPage extends React.Component {
         const encryptedStreams = sources.map(({stream}) => stream)
 
         return Promise.all(encryptedStreams.map(decryptBlob))
-          .then(encryptedStreams => encryptedStreams.map(url => ({url})))
-          .then(encryptedStreams => merge(sources, encryptedStreams))
+          .then(decryptedStreams => decryptedStreams.map(url => ({url})))
+          .then(decryptedStreams => merge(sources, decryptedStreams))
           .then(streams => {
             if (streams[sourceIndex] === undefined) { throw 'up' }
 

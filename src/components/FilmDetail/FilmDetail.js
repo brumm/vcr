@@ -4,6 +4,8 @@ import Slider from 'react-slick'
 import { Link, withRouter } from 'react-router'
 import scrollIntoView from 'scroll-iv'
 
+import CloseIcon from 'react-icons/lib/fa/close'
+import PlayIcon from 'react-icons/lib/fa/play'
 
 import BackLink from 'components/BackLink'
 import { fetchDetail } from 'utils/api'
@@ -45,37 +47,46 @@ export default class FilmDetail extends React.Component {
 
     return (
       <Flex className={style.Container}>
-        <Flex className={style.Description} direction='column'>
+        <Flex className={style.Description} direction='column' shrink={0}>
+
           <Flex className={style.Title}>{title}</Flex>
           <Flex grow={1} className={style.Text}>{description}</Flex>
-          <Flex direction='column' shrink={0} style={{ overflowY: 'auto', maxHeight: 200 }}>
-            {chapters.length === 1
-              ? (
-                <Link style={{ color: highlightColor, flexShrink: 0, borderBottom: 10 }} key={chapters[0].id} to={{
+
+          <BackLink label={<CloseIcon/>} path={basePath} className={style.closeIcon} />
+        </Flex>
+
+        {chapters.length > 1 &&
+          <Flex direction='column' className={style.Episodes} grow={1} shrink={0}>
+            {chapters.map(chapter => (
+              <Link style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }} key={chapter.id} to={{
+                pathname: `/watch/${chapter.id}`,
+                state: { title: chapter.title, basePath }
+              }}>
+                {chapter.title}
+              </Link>
+            ))}
+          </Flex>
+        }
+
+        {chapters.length === 1 &&
+          <Flex className={style.Slider} grow={1}>
+              <Link
+                className={style.playLink}
+                to={{
                   pathname: `/watch/${chapters[0].id}`,
                   state: { title, basePath }
-                }}>
-                  Watch Movie
-                </Link>
-              ) : (
-                chapters.map(chapter => (
-                  <Link style={{ display: 'flex', alignItems: 'center', flexShrink: 0, height: 25 }} key={chapter.id} to={{
-                    pathname: `/watch/${chapter.id}`,
-                    state: { title: chapter.title, basePath }
-                  }}>
-                    {chapter.title}
-                  </Link>
-                ))
-              )
-            }
+                }}
+              >
+                <PlayIcon className={style.playIcon} />
+              </Link>
+
+            {chapters.length === 1 && images && (
+              <Slider {...settings}>
+                {images.map((image, index) => <img className={style.Image} key={index} src={image} referrerPolicy='no-referrer' />)}
+              </Slider>
+            )}
           </Flex>
-          <BackLink path={basePath} style={{ marginTop: 10 }} />
-        </Flex>
-        {images && <div className={style.Slider}>
-          <Slider {...settings}>
-            {images.map((image, index) => <img className={style.Image} key={index} src={image} referrerPolicy='no-referrer' />)}
-          </Slider>
-        </div>}
+        }
       </Flex>
     )
   }
