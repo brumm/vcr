@@ -38,7 +38,7 @@ render(
         <Route path=":filmId" component={FilmDetail} />
       </Route>
 
-      <Route path="/watch/:chapterId(/:sourceIndex)" component={WatchPage} />
+      <Route path="/watch/:chapterId" component={WatchPage} />
 
     </Route>
 

@@ -1,7 +1,60 @@
 
 .Player {
+  position: relative;
   video {
     width: 100vw;
     height: 100vh;
   }
+
+  &:hover .Overlay {
+    opacity: 1;
+    transition: opacity 100ms linear;
+  }
+}
+
+.Overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  opacity: 0;
+  transition: opacity 500ms linear;
+}
+
+.OverlayVisible {
+  composes: Overlay;
+  opacity: 1;
+}
+
+.Progress {
+  flex-grow: 1;
+  appearance: none;
+  height: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px currentColor inset;
+
+  &::-webkit-progress-bar {
+    background-color: transparent;
+  }
+
+  &::-webkit-progress-bar {
+    background-color: transparent;
+  }
+
+  &::-webkit-progress-value {
+    box-sizing: content-box;
+    padding: 0 5px;
+    border-radius: 10px;
+    background-color: transparent;
+    background-image: linear-gradient(silver, white);
+  }
+}
+
+.PlayPause {
+  background: none;
+  border: none;
+  color: currentColor;
+  width: 30px;
+  height: 30px;
 }

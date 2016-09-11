@@ -1,0 +1,33 @@
+.Quality {
+  border: 1px solid currentColor;
+  padding: 6px 8px 7px;
+  border-radius: 5px;
+}
+
+.Controls {
+  position: absolute;
+  padding: 20px;
+  width: 100%;
+
+  > * + * {
+    margin-left: 10px;
+  }
+}
+
+.ControlsBottom {
+  composes: Controls;
+  bottom: 0;
+}
+
+.ControlsTop {
+  composes: Controls;
+  top: 0;
+}
+
+.Loading {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  font-size: 30px;
+}

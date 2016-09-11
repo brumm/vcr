@@ -1,10 +1,11 @@
+@import "~variables";
 
 .container {
   width: 100vw;
   height: 100vh;
-  background-color: #161616;
+  background-color: $app-background-color;
   background-image: url(noise.png);
-  transition: background-color 1s linear;
+  transition: background-color 500ms linear;
   font-size: 14px;
 }
 

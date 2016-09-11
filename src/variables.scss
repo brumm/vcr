@@ -5,6 +5,8 @@ $poster-ratio: 1.5;
 $highlight-color: gold;
 $darker-highlight-color: darken($highlight-color, 30%);
 
+$app-background-color: #161616;
+
 @function strip-units($value) {
   @return $value / ($value * 0 + 1);
 }

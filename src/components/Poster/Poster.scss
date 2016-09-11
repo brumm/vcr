@@ -47,4 +47,17 @@
   object-fit: cover;
   width: $poster-width;
   height: $poster-width * $poster-ratio;
+  position: relative;
+
+  &::before {
+    content: '?';
+    position: absolute;
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $poster-width / 2;
+  }
 }

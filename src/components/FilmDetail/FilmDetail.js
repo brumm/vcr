@@ -28,7 +28,7 @@ export default class FilmDetail extends React.Component {
 
   @promised static loadProps = ({ filmId }) => (
     fetchDetail(filmId).then(
-      movie => ({ ...movie })
+      movie => ({ ...movie, filmId })
     )
   )
 
@@ -37,10 +37,18 @@ export default class FilmDetail extends React.Component {
   }
 
   render() {
-    const {
-      title, description, poster, images, chapters,
-      location: { state: { rowKey, basePath }}
+    let {
+      title,
+      description,
+      poster,
+      images,
+      chapters,
+      filmId,
+      location: { state }
     } = this.props
+
+    state = state === null ? {} : state
+    const { rowKey = 'row-1', basePath } = state
 
     let rowElement = document.getElementById(rowKey)
     if (rowElement) { scrollIntoView(rowElement) }
@@ -60,7 +68,7 @@ export default class FilmDetail extends React.Component {
             {chapters.map(chapter => (
               <Link style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }} key={chapter.id} to={{
                 pathname: `/watch/${chapter.id}`,
-                state: { title: chapter.title, basePath }
+                state: { title: chapter.title, basePath: `${basePath}/${filmId}` }
               }}>
                 {chapter.title}
               </Link>

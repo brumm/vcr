@@ -32,14 +32,10 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.8);
   box-shadow: none;
   position: absolute;
-  color: rgba(255, 255, 255, 0.5);
+  color: currentColor;
   top: 0;
   left: 0;
   right: 0;
-}
-
-.controls {
-  height: 100%;
 }
 
 .trafficLight {

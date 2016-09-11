@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import style from './Categories.scss'
 
 const Categories = ({items}) => (
-  <Flex>
+  <Flex className={style.Container}>
     {items.map(({id, title}) => (
       <Link
         to={`/browse/${id}`}

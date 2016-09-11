@@ -1,13 +1,12 @@
 import React from 'react'
 import Flex from 'flex-component'
 
-import BackLink from 'components/BackLink'
 import style from './Titlebar.scss'
 
 class Titlebar extends React.Component {
 
   render() {
-    const { floating, className, backLink, left, center, right } = this.props
+    const { floating, className, left, center, right } = this.props
     return (
       <Flex
         className={[floating ? style.ContainerFloating : style.Container, className].join(' ')}
@@ -17,7 +16,6 @@ class Titlebar extends React.Component {
       >
 
         <Flex style={{overflow: 'visible'}} grow={1} basis={0} alignItems='center' justifyContent='flex-start'>
-          {floating && <BackLink path={backLink} />}
           {!floating && [
             <div key={1} className={style.trafficLight} />,
             <div key={2} className={style.trafficLight} />,

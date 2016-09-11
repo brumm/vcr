@@ -4,8 +4,11 @@ export default function promised(target, key, descriptor) {
     method(params)
       .then((...args) => callback(null, ...args))
       .catch(error => {
-        console.error(error)
-        window.location.replace(window.location.origin)
+        if (process.env.DEV) {
+          throw error
+        } else {
+          window.location.replace(window.location.origin)
+        }
       })
   }
   return descriptor
