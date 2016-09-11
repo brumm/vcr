@@ -4,24 +4,21 @@
   border-radius: 5px;
 }
 
-.Controls {
+.ControlsBottom {
   position: absolute;
   padding: 20px;
   width: 100%;
+  bottom: 0;
+  padding-top: 40px;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.9)
+  );
+
 
   > * + * {
     margin-left: 10px;
   }
-}
-
-.ControlsBottom {
-  composes: Controls;
-  bottom: 0;
-}
-
-.ControlsTop {
-  composes: Controls;
-  top: 0;
 }
 
 .Loading {

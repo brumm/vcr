@@ -32,11 +32,6 @@ export default class WatchPage extends React.Component {
     streamIndex: 0
   }
 
-  constructor(props) {
-    super(props)
-    console.log(this);
-  }
-
   @promised static loadProps = ({ chapterId }) => (
     fetchStream(chapterId)
       .then(sources => sources.sort(byQuality))
@@ -53,11 +48,6 @@ export default class WatchPage extends React.Component {
   fetchSource({ url, parseType }) {
     const parser = parserDictionary[parseType]
     return parseLink(url, parser)
-  }
-
-  handleMouseMove = ::this.handleMouseMove
-  handleMouseMove() {
-    console.log('move');
   }
 
   render() {
