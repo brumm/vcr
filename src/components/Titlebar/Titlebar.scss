@@ -2,7 +2,7 @@
 
 .Container {
   -webkit-app-region: drag;
-  padding: $item-margin $item-margin * 2;
+  padding: $item-margin / 2 $item-margin * 2;
   background-image:
     linear-gradient(
       rgba(255, 255, 255, 0.05),
@@ -17,10 +17,11 @@
   overflow: visible;
   position: relative;
   z-index: 1;
-  transition: all 1s linear;
+  transition: all 500ms linear;
 }
 
 .ContainerFloating {
+  padding: $item-margin $item-margin * 2;
   border-radius: 0;
   composes: Container;
   padding-bottom: 20px;
