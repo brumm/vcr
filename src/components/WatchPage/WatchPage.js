@@ -2,7 +2,6 @@ import React from 'react'
 import Flex from 'flex-component'
 import { hashHistory } from 'react-router'
 import merge from 'lodash/merge'
-import Loader from 'halogen/MoonLoader'
 
 import { Media, controls } from 'react-media-player'
 const { CurrentTime, MuteUnmute } = controls
@@ -14,6 +13,7 @@ import {
   PlayPause,
 } from 'components/Player'
 
+import Loader from 'components/Loader'
 import BackLink from 'components/BackLink'
 import Titlebar from 'components/Titlebar'
 import Pinky from 'components/Pinky'
@@ -57,7 +57,6 @@ export default class WatchPage extends React.Component {
 
     const fetchPromise = this.fetchSource(stream)
       .catch(() => {
-        console.log(streamIndex, streams.length);
         if (streamIndex !== streams.length - 1) {
           this.setState({ streamIndex: streamIndex + 1 })
         } else {
@@ -80,7 +79,7 @@ export default class WatchPage extends React.Component {
                 />
 
                 {media.isLoading && <Flex style={{ width: '100vw', height: '100vh' }} alignItems='center' justifyContent='center'>
-                  <Loader color='white' size='50px' />
+                  <Loader />
                 </Flex>}
 
                 <Flex className={style.ControlsBottom} alignItems='center'>
@@ -94,7 +93,7 @@ export default class WatchPage extends React.Component {
           </Player>
         ) : (
           <Flex className={style.Loading} alignItems='center' justifyContent='center'>
-            <Loader color='white' size='50px' />
+            <Loader />
           </Flex>
         )}
       </Pinky>
