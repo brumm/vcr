@@ -3,6 +3,8 @@ import Flex from 'flex-component'
 
 import style from './Titlebar.scss'
 
+import { remote } from 'electron'
+
 class Titlebar extends React.Component {
 
   render() {
@@ -16,12 +18,13 @@ class Titlebar extends React.Component {
       >
 
         <Flex style={{overflow: 'visible'}} grow={1} basis={0} alignItems='center' justifyContent='flex-start'>
-          {!floating && [
-            <div key={1} className={style.trafficLight} />,
-            <div key={2} className={style.trafficLight} />,
-            <div key={3} className={style.trafficLight} />,
+          {[
+            <div key={1} className={style.trafficLight} onClick={() => remote.app.quit()} />,
+            <div key={2} className={style.trafficLight} onClick={() => remote.getCurrentWindow().minimize()} />,
+            <div key={3} className={style.trafficLight} onClick={() => remote.getCurrentWindow().setFullScreen(!remote.getCurrentWindow().isFullScreen())} />,
           ]}
-          {left}
+
+          <div style={{ marginLeft: 10 }}>{left}</div>
         </Flex>
 
         <Flex style={{overflow: 'visible'}} grow={1} basis={0} alignItems='center' justifyContent='center'>
