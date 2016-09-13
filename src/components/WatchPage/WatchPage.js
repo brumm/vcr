@@ -9,7 +9,6 @@ const { CurrentTime, MuteUnmute } = controls
 
 import {
   Player,
-  Overlay,
   Progress,
   PlayPause,
 } from 'components/Player'
@@ -70,27 +69,27 @@ export default class WatchPage extends React.Component {
         {({data}) => data ? (
 
           <Player src={data} vendor='video' onError={console.error} autoPlay>
-            {media => (
-              <Overlay visible={!media.isPlaying}>
+            {media => ([
+              <Titlebar
+                floating
+                key='titlebar'
+                center={state.title}
+                right={<BackLink style={{ width: 20, height: 20 }} label={<CloseIcon />} />}
+              />,
 
-                <Titlebar
-                  floating
-                  center={state.title}
-                  right={<BackLink style={{ width: 20, height: 20 }} label={<CloseIcon />} />}
-                />
-
-                {media.isLoading && <Flex style={{ width: '100vw', height: '100vh' }} alignItems='center' justifyContent='center'>
+              media.isLoading && (
+                <Flex key='loader' style={{ width: '100vw', height: '100vh' }} alignItems='center' justifyContent='center'>
                   <Loader />
-                </Flex>}
-
-                <Flex className={style.ControlsBottom} alignItems='center'>
-                  <PlayPause />
-                  <Progress />
-                  <CurrentTime style={{ minWidth: 50, textAlign: 'center' }} />
-                  <div className={style.Quality}>{stream.quality}</div>
                 </Flex>
-              </Overlay>
-            )}
+              ),
+
+              <Flex key='bottom-controls' className={style.ControlsBottom} alignItems='center'>
+                <PlayPause />
+                <Progress />
+                <CurrentTime style={{ minWidth: 50, textAlign: 'center' }} />
+                <div className={style.Quality}>{stream.quality}</div>
+              </Flex>
+            ])}
           </Player>
         ) : (
           <Flex className={style.Loading} alignItems='center' justifyContent='center'>

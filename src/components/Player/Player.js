@@ -1,6 +1,7 @@
 import React from 'react'
 import PlayIcon from 'react-icons/lib/fa/play'
 import PauseIcon from 'react-icons/lib/fa/pause'
+import debounce from 'lodash/debounce'
 
 import { withMediaPlayer, withMediaProps, withKeyboardControls, controls } from 'react-media-player'
 import style from './Player.scss'
@@ -66,11 +67,43 @@ export const Overlay = ({ visible, children }) => (
 @withKeyboardControls
 export class Player extends React.Component {
 
+  state = {
+    showOverlay: false
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.hideOverlay = debounce(() => {
+      this.setState({ showOverlay: false })
+    }, 2000, { trailing: true })
+
+  }
+
+  shouldShowOverlay() {
+    return !this.props.media.isPlaying || this.state.showOverlay
+  }
+
+  showOverlay() {
+    this.setState({ showOverlay: true })
+  }
+
+  handleMousemove = ::this.handleMousemove
+  handleMousemove() {
+    if (this.state.showOverlay === false) {
+      this.showOverlay()
+    } else {
+      this.hideOverlay()
+    }
+  }
+
   componentDidMount() {
     document.addEventListener('keydown', this.props.keyboardControls)
+    document.addEventListener('mousemove', this.handleMousemove)
   }
   componentWillUnmount() {
     document.removeEventListener('keydown', this.props.keyboardControls)
+    document.removeEventListener('mousemove', this.handleMousemove)
   }
 
   render() {
@@ -78,7 +111,10 @@ export class Player extends React.Component {
     return (
       <div className={style.Player}>
         {Player}
-        {children(media)}
+
+        <Overlay visible={this.shouldShowOverlay()}>
+          {children(media)}
+        </Overlay>
       </div>
     )
   }

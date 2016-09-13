@@ -6,11 +6,6 @@
     height: 100vh;
   }
 
-  &:hover .Overlay {
-    opacity: 1;
-    transition: opacity 100ms linear;
-  }
-
   color: rgba(255, 255, 255, 0.3);
 }
 
@@ -20,13 +15,16 @@
   width: 100vw;
   height: 100vh;
 
+  cursor: none;
   opacity: 0;
   transition: opacity 500ms linear;
 }
 
 .OverlayVisible {
   composes: Overlay;
+  cursor: default;
   opacity: 1;
+  transition: opacity 100ms linear;
 }
 
 .Progress {
