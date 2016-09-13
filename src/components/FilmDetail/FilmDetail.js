@@ -48,10 +48,10 @@ export default class FilmDetail extends React.Component {
     } = this.props
 
     state = state === null ? {} : state
-    const { rowKey = 'row-1', basePath } = state
 
     let rowElement = document.getElementById(rowKey)
     if (rowElement) { scrollIntoView(rowElement) }
+    const { basePath } = state
 
     return (
       <Flex className={style.Container}>
@@ -66,10 +66,11 @@ export default class FilmDetail extends React.Component {
         {chapters.length > 1 &&
           <Flex direction='column' className={style.Episodes} grow={1} shrink={0}>
             {chapters.map(chapter => (
-              <Link style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }} key={chapter.id} to={{
-                pathname: `/watch/${chapter.id}`,
-                state: { title: chapter.title, basePath: `${basePath}/${filmId}` }
-              }}>
+              <Link
+                style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }}
+                key={chapter.id}
+                to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title }}}
+              >
                 {chapter.title}
               </Link>
             ))}
@@ -80,10 +81,7 @@ export default class FilmDetail extends React.Component {
           <Flex className={style.Slider} grow={1}>
               <Link
                 className={style.playLink}
-                to={{
-                  pathname: `/watch/${chapters[0].id}`,
-                  state: { title, basePath }
-                }}
+                to={{ pathname: `/watch/${chapters[0].id}`, state: { title } }}
               >
                 <PlayIcon className={style.playIcon} />
               </Link>

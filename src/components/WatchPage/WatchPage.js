@@ -2,6 +2,7 @@ import React from 'react'
 import Flex from 'flex-component'
 import { hashHistory } from 'react-router'
 import merge from 'lodash/merge'
+import CloseIcon from 'react-icons/lib/fa/close'
 
 import { Media, controls } from 'react-media-player'
 const { CurrentTime, MuteUnmute } = controls
@@ -75,7 +76,7 @@ export default class WatchPage extends React.Component {
                 <Titlebar
                   floating
                   center={state.title}
-                  left={<BackLink path={state.basePath} />}
+                  right={<BackLink style={{ width: 20, height: 20 }} label={<CloseIcon />} />}
                 />
 
                 {media.isLoading && <Flex style={{ width: '100vw', height: '100vh' }} alignItems='center' justifyContent='center'>
