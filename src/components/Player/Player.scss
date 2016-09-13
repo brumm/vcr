@@ -44,17 +44,37 @@
 
   &::-webkit-progress-value {
     box-sizing: content-box;
-    padding: 0 5px;
+    min-width: 10px;
     border-radius: 10px;
     background-color: transparent;
+    box-shadow: 0 1px 0 white inset;
     background-image: linear-gradient(silver, white);
   }
 }
 
-.PlayPause {
+.ControlButton {
   background: none;
   border: none;
   color: currentColor;
   width: 30px;
   height: 30px;
+}
+
+.Volume {
+  appearance: none;
+
+  height: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px currentColor inset;
+  background-color: transparent;
+  cursor: default;
+
+  &::-webkit-slider-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    appearance: none;
+    box-shadow: 0 1px 0 white inset;
+    background-image: linear-gradient(silver, white);
+  }
 }

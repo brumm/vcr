@@ -5,12 +5,14 @@ import merge from 'lodash/merge'
 import CloseIcon from 'react-icons/lib/fa/close'
 
 import { Media, controls } from 'react-media-player'
-const { CurrentTime, MuteUnmute } = controls
+const { CurrentTime } = controls
 
 import {
   Player,
   Progress,
   PlayPause,
+  MuteUnmute,
+  Volume,
 } from 'components/Player'
 
 import Loader from 'components/Loader'
@@ -87,6 +89,8 @@ export default class WatchPage extends React.Component {
                 <PlayPause />
                 <Progress />
                 <CurrentTime style={{ minWidth: 50, textAlign: 'center' }} />
+                <MuteUnmute />
+                <Volume />
                 <div className={style.Quality}>{stream.quality}</div>
               </Flex>
             ])}
