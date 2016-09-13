@@ -27,7 +27,7 @@ class Titlebar extends React.Component {
           <div style={{ marginLeft: 10 }}>{left}</div>
         </Flex>
 
-        <Flex style={{overflow: 'visible'}} grow={1} basis={0} alignItems='center' justifyContent='center'>
+        <Flex style={{overflow: 'visible'}} grow={2} basis={0} alignItems='center' justifyContent='center'>
           {center}
         </Flex>
 
