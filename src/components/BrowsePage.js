@@ -9,6 +9,10 @@ import FilmList from 'components/FilmList'
 
 export default class BrowsePage extends React.Component {
 
+  shouldComponentUpdate({ params: { filmType, filmId }}) {
+    return filmType !== this.props.params.filmType || filmId !== this.props.params.filmId
+  }
+
   @promised static loadProps = ({ filmType }) => (
     fetchMovies(filmType).then(
       ({ films, more }) => ({ filmType, films, more })
