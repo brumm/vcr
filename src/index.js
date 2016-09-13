@@ -13,19 +13,18 @@ import BrowsePage from 'components/BrowsePage'
 import SearchPage from 'components/SearchPage'
 import WatchPage  from 'components/WatchPage'
 import FilmDetail from 'components/FilmDetail'
+import Loader     from 'components/Loader'
 
 hashHistory.listen(({ pathname }) => console.info('[location]', pathname))
 
+const renderLoading = () => (
+  <Flex style={{position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh'}} alignItems='center' justifyContent='center'>
+    <Loader />
+  </Flex>
+)
+
 render(
-  <Router history={hashHistory} render={props => <AsyncProps {...props} renderLoading={() => (
-    <div className="video-spinner">
-      <div className="video-spinner__rect1"></div>
-      <div className="video-spinner__rect2"></div>
-      <div className="video-spinner__rect3"></div>
-      <div className="video-spinner__rect4"></div>
-      <div className="video-spinner__rect5"></div>
-    </div>
-  )} />}>
+  <Router history={hashHistory} render={props => <AsyncProps {...props} renderLoading={renderLoading} />}>
     <Route path="/" component={App}>
 
       <IndexRedirect to="/browse/movie" />
