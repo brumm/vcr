@@ -1,126 +1,26 @@
 import React from 'react'
-import PlayIcon from 'react-icons/lib/fa/play'
-import PauseIcon from 'react-icons/lib/fa/pause'
-import VolumeIcon from 'react-icons/lib/fa/volume-up'
-import MuteIcon from 'react-icons/lib/fa/volume-off'
 import debounce from 'lodash/debounce'
 
-import { withMediaPlayer, withMediaProps, withKeyboardControls, controls } from 'react-media-player'
+import {
+  withMediaPlayer,
+  withMediaProps,
+  withKeyboardControls,
+  controls
+} from 'react-media-player'
+
 import style from './Player.scss'
 
-@withMediaProps
-export class Volume extends React.Component {
-  onChangeUsed = false
+export { default as Volume } from './Volume'
+export { default as PlayPause } from './PlayPause'
+export { default as MuteUnmute } from './MuteUnmute'
+export { default as Progress } from './Progress'
 
-  shouldComponentUpdate({ media }) {
-    return this.props.media.volume !== media.volume
-  }
-
-  handleChange = ({ target: { value } }) => {
-    this.props.media.setVolume((+value).toFixed(4))
-    this.onChangeUsed = true
-  }
-
-  render() {
-    const { media: { volume }} = this.props
-    return (
-      <input
-        type="range"
-        step="any"
-        min={0}
-        max={1}
-        value={volume}
-        onChange={this.handleChange}
-        className={style.Volume}
-      />
-    )
-  }
-}
-
-@withMediaProps
-export class PlayPause extends React.Component {
-  shouldComponentUpdate({ media }) {
-    return this.props.media.isPlaying !== media.isPlaying
-  }
-
-  handlePlayPause() {
-    this.props.media.playPause()
-  }
-
-  render() {
-    const { media } = this.props
-    return (
-      <button
-        type="button"
-        className={style.ControlButton}
-        onClick={::this.handlePlayPause}
-      >
-        { media.isPlaying ? <PauseIcon/> : <PlayIcon/> }
-      </button>
-    )
-  }
-}
-
-@withMediaProps
-export class MuteUnmute extends React.Component {
-  shouldComponentUpdate({ media }) {
-    return this.props.media.isMuted !== media.isMuted
-  }
-
-  handleMuteUnmute = () => {
-    this.props.media.muteUnmute()
-  }
-
-  render() {
-    const { media } = this.props
-    return (
-      <button
-        type="button"
-        className={style.ControlButton}
-        onClick={this.handleMuteUnmute}
-      >
-        { media.isMuted ? <MuteIcon /> : <VolumeIcon /> }
-      </button>
-    )
-  }
-}
-
-@withMediaProps
-export class Progress extends React.Component {
-  shouldComponentUpdate({ media }) {
-    return this.props.media.currentTime !== media.currentTime
-  }
-
-  handleSeek({ clientX, target: { offsetLeft, clientWidth }}) {
-    let fraction = (clientX - offsetLeft) / clientWidth
-    this.props.media.seekTo(
-      this.props.media.duration * fraction
-    )
-  }
-
-  render() {
-    const { media } = this.props
-    return (
-      <progress
-        onClick={::this.handleSeek}
-        className={style.Progress}
-        max={100}
-        value={media.currentTime * 100 / media.duration}
-      />
-    )
-  }
-}
-
-export const Overlay = ({ visible, children }) => (
-  <div className={visible ? style.OverlayVisible : style.Overlay}>
-    {children}
-  </div>
-)
+import Overlay from './Overlay'
 
 @withMediaPlayer
 @withMediaProps
 @withKeyboardControls
-export class Player extends React.Component {
+export default class Player extends React.Component {
 
   state = {
     showOverlay: false
@@ -132,7 +32,6 @@ export class Player extends React.Component {
     this.hideOverlay = debounce(() => {
       this.setState({ showOverlay: false })
     }, 2000, { trailing: true })
-
   }
 
   shouldShowOverlay() {

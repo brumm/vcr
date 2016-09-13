@@ -7,8 +7,7 @@ import CloseIcon from 'react-icons/lib/fa/close'
 import { Media, controls } from 'react-media-player'
 const { CurrentTime } = controls
 
-import {
-  Player,
+import Player, {
   Progress,
   PlayPause,
   MuteUnmute,
