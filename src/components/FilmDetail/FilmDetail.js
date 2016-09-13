@@ -48,10 +48,10 @@ export default class FilmDetail extends React.Component {
     } = this.props
 
     state = state === null ? {} : state
+    const { basePath, rowKey } = state
 
     let rowElement = document.getElementById(rowKey)
     if (rowElement) { scrollIntoView(rowElement) }
-    const { basePath } = state
 
     return (
       <Flex className={style.Container}>
