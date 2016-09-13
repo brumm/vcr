@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import Flex from 'flex-component'
 
 import { Router, Route, IndexRoute, IndexRedirect, Redirect, hashHistory } from 'react-router'
-import AsyncProps from 'async-props'
+import AsyncProps from 'components/AsyncProps'
 
 import page from 'utils/page'
 
