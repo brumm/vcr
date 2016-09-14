@@ -1,6 +1,7 @@
 $poster-width: 240px;
-$item-margin: 10px;
 $poster-ratio: 1.5;
+$poster-height: $poster-width * $poster-ratio;
+$item-margin: 10px;
 
 $highlight-color: gold;
 $darker-highlight-color: darken($highlight-color, 30%);
@@ -14,5 +15,6 @@ $app-background-color: #161616;
 :export {
   highlightColor: $highlight-color;
   posterWidth: strip-units($poster-width);
+  posterHeight: strip-units($poster-height);
   itemMargin: strip-units($item-margin);
 }

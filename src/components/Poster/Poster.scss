@@ -46,7 +46,7 @@
 .Poster {
   object-fit: cover;
   width: $poster-width;
-  height: $poster-width * $poster-ratio;
+  height: $poster-height;
 
   &::before {
     content: '?';

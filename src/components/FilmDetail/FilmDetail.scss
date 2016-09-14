@@ -1,6 +1,6 @@
 @import "~variables";
 
-$height: $poster-width * $poster-ratio + 50;
+$height: $poster-height + 50;
 
 .Container {
   position: relative;
