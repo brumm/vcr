@@ -56,6 +56,7 @@ export default class Player extends React.Component {
     document.addEventListener('mousemove', this.handleMousemove)
   }
   componentWillUnmount() {
+    this.hideOverlay.cancel()
     document.removeEventListener('keydown', this.props.keyboardControls)
     document.removeEventListener('mousemove', this.handleMousemove)
   }
