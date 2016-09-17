@@ -46,9 +46,9 @@ const get = (urlSearchParams) => {
     })
 }
 
-export function fetchMovies(type, sort = 'popular') {
+export function fetchMovies({filmType, sortBy, page}) {
   return get(
-    new URLSearchParams(`type=${sort}&t=${type}`)
+    new URLSearchParams(`type=${sortBy}&t=${filmType}&page=${page}`)
   )
 }
 

@@ -13,8 +13,8 @@ export default class BrowsePage extends React.Component {
     return filmType !== this.props.params.filmType || filmId !== this.props.params.filmId
   }
 
-  @promised static loadProps = ({ filmType }) => (
-    fetchMovies(filmType).then(
+  @promised static loadProps = ({ filmType }, { query: { sortBy = 'popular', page = 1 }}) => (
+    fetchMovies({filmType, page, sortBy}).then(
       ({ films, more }) => ({ filmType, films, more })
     )
   )
