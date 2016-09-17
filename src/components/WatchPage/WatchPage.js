@@ -75,7 +75,7 @@ export default class WatchPage extends React.Component {
                 floating
                 key='titlebar'
                 center={state.title}
-                right={<BackLink style={{ width: 20, height: 20 }} label={<CloseIcon />} />}
+                right={<BackLink className={style.Quality} label='Close' />}
               />,
 
               media.isLoading && (
