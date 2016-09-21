@@ -42,9 +42,10 @@
     background-image: none;
     background-color: transparent;
     box-shadow: 0 0 0 1px currentColor inset;
-    transition: all 500ms linear;
+    transition: all 400ms linear;
 
     &:hover {
+      transition: all 100ms linear;
       background-color: rgba(255, 255, 255, 0.2);
     }
   }
@@ -60,6 +61,7 @@
     rgba(255, 255, 255, 0.1) 20%,
     rgba(255, 255, 255, 0)
   );
+  transition: all 400ms linear;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.5),
     0 1px 0 rgba(255, 255, 255, 0.1) inset;
@@ -69,6 +71,7 @@
   }
 
   &:hover {
+    transition: all 100ms linear;
     background-color: darken($highlight-color, 20%);
   }
 }
