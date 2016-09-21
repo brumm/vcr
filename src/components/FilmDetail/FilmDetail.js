@@ -3,6 +3,7 @@ import Flex from 'flex-component'
 import Slider from 'react-slick'
 import { Link, withRouter } from 'react-router'
 import scrollIntoView from 'scroll-iv'
+import sortBy from 'lodash/sortBy'
 
 import CloseIcon from 'react-icons/lib/fa/close'
 import PlayIcon from 'react-icons/lib/fa/play'
@@ -47,6 +48,7 @@ export default class FilmDetail extends React.Component {
       location: { state }
     } = this.props
 
+    chapters = sortBy(chapters, 'title')
     state = state === null ? {} : state
     const { basePath, rowKey } = state
 
