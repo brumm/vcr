@@ -62,7 +62,7 @@ export default class Player extends React.Component {
   }
 
   render() {
-    const { Player, keyboardControls, media, children } = this.props
+    const { Player, media, children } = this.props
     return (
       <div className={style.Player}>
         {Player}
