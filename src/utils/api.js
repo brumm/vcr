@@ -3,8 +3,8 @@ import isEmpty from 'lodash/isEmpty'
 
 import Cache from 'utils/cache'
 
-const API_BASE = 'http://qazwsxedcrfvtgb.info/cbox'
-// const API_BASE = 'http://167.114.102.196/cbox'
+// const API_BASE = 'http://qazwsxedcrfvtgb.info/cbox'
+const API_BASE = 'http://167.114.102.196/cbox'
 // const API_BASE = 'http://playboxhd.com/api/box'
 
 const cache = new Cache(1000 * 60 * 5)
