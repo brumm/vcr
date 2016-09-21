@@ -71,7 +71,7 @@ export default class FilmDetail extends React.Component {
               <Link
                 style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }}
                 key={chapter.id}
-                to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title }}}
+                to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title, chapters }}}
               >
                 {chapter.title}
               </Link>

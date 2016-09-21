@@ -2,7 +2,7 @@ import React from 'react'
 import Flex from 'flex-component'
 import { hashHistory } from 'react-router'
 import merge from 'lodash/merge'
-import CloseIcon from 'react-icons/lib/fa/close'
+import NextIcon from 'react-icons/lib/fa/step-forward'
 
 import { Media, controls } from 'react-media-player'
 const { CurrentTime } = controls
@@ -28,6 +28,15 @@ import parseLink from 'utils/parseLink'
 
 import style from './WatchPage.scss'
 
+const Next = ({ nextChapter: { id, title }, chapters }) => (
+  <button className={style.ControlButton} onClick={() => hashHistory.replace({
+    pathname: `/watch/${id}`,
+    state: { title, chapters }
+  })}>
+    <NextIcon />
+  </button>
+)
+
 export default class WatchPage extends React.Component {
   state = {
     streamIndex: 0
@@ -52,9 +61,13 @@ export default class WatchPage extends React.Component {
   }
 
   render() {
-    const { streams, location: { state }} = this.props
+    const { streams, location: { state }, params: { chapterId }} = this.props
     const { streamIndex } = this.state
     const stream = this.props.streams[streamIndex]
+
+    if (state.chapters) {
+      var nextChapter = state.chapters[state.chapters.findIndex(({ id }, index) => id == chapterId) + 1]
+    }
 
     const fetchPromise = this.fetchSource(stream)
       .catch(() => {
@@ -87,6 +100,7 @@ export default class WatchPage extends React.Component {
               <Flex key='bottom-controls' className={style.ControlsBottom} alignItems='center'>
                 <PlayPause />
                 <Progress />
+                {state.chapters && <Next nextChapter={nextChapter} chapters={state.chapters} />}
                 <CurrentTime style={{ minWidth: 50, textAlign: 'center' }} />
                 <MuteUnmute />
                 <Volume />

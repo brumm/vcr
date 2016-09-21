@@ -20,6 +20,10 @@
   }
 }
 
+.ControlButton {
+  composes: ControlButton from "../Player/Player.scss";
+}
+
 .Loading {
   position: absolute;
   top: 0; left: 0;
