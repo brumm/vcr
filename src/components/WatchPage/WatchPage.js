@@ -110,7 +110,15 @@ export default class WatchPage extends React.Component {
           </Player>
         ) : (
           <Flex className={style.Loading} alignItems='center' justifyContent='center'>
-            <Loader />
+            <Titlebar
+              floating
+              key='titlebar'
+              center={`${state.title} (Trying stream ${streamIndex + 1} of ${streams.length})`}
+              right={<BackLink className={style.Quality} label='Close' />}
+            />
+            {streamIndex === streams.length - 1 ? <div>
+              No working stream, please try again later
+            </div> : <Loader />}
           </Flex>
         )}
       </Pinky>
