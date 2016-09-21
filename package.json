@@ -28,6 +28,7 @@
     "react-dom": "^15.3.0",
     "react-icons": "^2.2.1",
     "react-media-player": "^0.5.0",
+    "react-pinky-promise": "^1.0.0",
     "react-router": "^2.6.1",
     "react-slick": "^0.13.1",
     "scroll-iv": "^1.0.2"

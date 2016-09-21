@@ -17,7 +17,7 @@ import Player, {
 import Loader from 'components/Loader'
 import BackLink from 'components/BackLink'
 import Titlebar from 'components/Titlebar'
-import Pinky from 'components/Pinky'
+import Pinky from 'react-pinky-promise'
 
 import { decryptBlob } from 'utils/irpc'
 import { fetchStream } from 'utils/api'
@@ -67,9 +67,9 @@ export default class WatchPage extends React.Component {
 
     return (
       <Pinky promise={fetchPromise}>
-        {({data}) => data ? (
+        {({resolved}) => resolved ? (
 
-          <Player src={data} vendor='video' onError={console.error} autoPlay>
+          <Player src={resolved} vendor='video' onError={console.error} autoPlay>
             {media => ([
               <Titlebar
                 floating
