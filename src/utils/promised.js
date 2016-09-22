@@ -1,3 +1,5 @@
+import { hashHistory } from 'react-router'
+
 export default function promised(target, key, descriptor) {
   let method = descriptor.initializer()
   descriptor.initializer = () => ({ params, location }, callback) => {
@@ -7,7 +9,7 @@ export default function promised(target, key, descriptor) {
         if (process.env.DEV) {
           throw error
         } else {
-          window.location.replace(window.location.origin)
+          hashHistory.replace('/')
         }
       })
   }
