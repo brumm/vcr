@@ -100,7 +100,7 @@ export default class WatchPage extends React.Component {
               <Flex key='bottom-controls' className={style.ControlsBottom} alignItems='center'>
                 <PlayPause />
                 <Progress />
-                {state.chapters && <Next nextChapter={nextChapter} chapters={state.chapters} />}
+                {state.chapters && nextChapter && <Next nextChapter={nextChapter} chapters={state.chapters} />}
                 <CurrentTime style={{ minWidth: 50, textAlign: 'center' }} />
                 <MuteUnmute />
                 <Volume />
