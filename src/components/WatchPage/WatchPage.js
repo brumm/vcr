@@ -109,7 +109,9 @@ export default class WatchPage extends React.Component {
                 <CurrentTime style={{ minWidth: 50, textAlign: 'center' }} />
                 <MuteUnmute />
                 <Volume />
-                <div className={style.Quality}>{stream.quality}</div>
+                <select className={style.Quality} value={streamIndex} onChange={({ target: { value }}) => this.setState({ streamIndex: +value })}>
+                  {streams.map((stream, index) => <option key={index} value={index}>{stream.quality}</option>)}
+                </select>
               </Flex>
             ])}
           </Player>
