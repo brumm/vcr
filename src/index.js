@@ -18,7 +18,11 @@ import Loader     from 'components/Loader'
 hashHistory.listen(({ pathname }) => console.info('[location]', pathname))
 
 const renderLoading = () => (
-  <Flex style={{position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh'}} alignItems='center' justifyContent='center'>
+  <Flex
+    style={{position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh'}}
+    alignItems='center'
+    justifyContent='center'
+  >
     <Loader />
   </Flex>
 )

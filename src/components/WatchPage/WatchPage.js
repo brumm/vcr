@@ -56,7 +56,10 @@ export default class WatchPage extends React.Component {
   )
 
   fetchSource({ url, parseType }) {
-    const parser = parserDictionary[parseType]
+    const parser = (window.parserDictionary || parserDictionary)[parseType]
+    if (!parser) {
+      throw new Error(`no parser for parseType ${parseType}`)
+    }
     return parseLink(url, parser)
   }
 
@@ -66,7 +69,9 @@ export default class WatchPage extends React.Component {
     const stream = this.props.streams[streamIndex]
 
     if (state.chapters) {
-      var nextChapter = state.chapters[state.chapters.findIndex(({ id }, index) => id == chapterId) + 1]
+      var nextChapter = state.chapters[
+        state.chapters.findIndex(({ id }, index) => id == chapterId) + 1
+      ]
     }
 
     const fetchPromise = this.fetchSource(stream)

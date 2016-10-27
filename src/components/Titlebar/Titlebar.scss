@@ -21,13 +21,13 @@
 }
 
 .ContainerFloating {
+  composes: Container;
   padding: $item-margin $item-margin * 2;
   border-radius: 0;
-  composes: Container;
   padding-bottom: 20px;
   background-color: transparent;
   background-image: linear-gradient(
-    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0.9) -40%,
     rgba(0, 0, 0, 0)
   );
   border-bottom: none;
