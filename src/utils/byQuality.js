@@ -2,6 +2,7 @@
 const sortOrder = [
   '1080p',
   '720p',
+  '480p',
   '360p',
   'Auto',
   'auto',
