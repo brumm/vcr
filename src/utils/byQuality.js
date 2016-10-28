@@ -8,8 +8,8 @@ const sortOrder = [
   'auto',
 ]
 
-const byQuality = ({ quality: qualityA }, { quality: qualityB }) => {
-  return sortOrder.indexOf(qualityA) < sortOrder.indexOf(qualityB) ? -1 : 1
-}
+const byQuality = ({ quality: qualityA }, { quality: qualityB }) => (
+  sortOrder.indexOf(qualityA) < sortOrder.indexOf(qualityB) ? -1 : 1
+)
 
 export default byQuality
