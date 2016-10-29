@@ -2,6 +2,7 @@ import React from 'react'
 import Flex from 'flex-component'
 import chunk from 'lodash/chunk'
 import { Link } from 'react-router'
+import scrollIntoView from 'scroll-iv'
 
 import Poster from 'components/Poster'
 
@@ -27,6 +28,12 @@ export default class FilmList extends React.Component {
     window.removeEventListener('resize', this.watchResize)
   }
 
+  scrollIntoView(component) {
+    if (component) {
+      component._reactInternalInstance._renderedComponent._hostNode.scrollIntoView()
+    }
+  }
+
   render() {
     // note that we're casting to Int here
     let itemsPerRow = Math.floor(
@@ -41,7 +48,7 @@ export default class FilmList extends React.Component {
           let rowKey = `row-${rowIndex}`
 
           return (
-            <Flex key={rowKey} direction='column' shrink={0}>
+            <Flex ref={component => rowActive && this.scrollIntoView(component)} key={rowKey} direction='column' shrink={0}>
               <Flex id={rowKey} justifyContent='flex-start' shrink={0} className={style.Row}>
                 {row.map(({ id, title, poster }) => {
                   let active = `${id}` === activeFilmId

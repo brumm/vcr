@@ -2,7 +2,7 @@ import React from 'react'
 import Flex from 'flex-component'
 import Slider from 'react-slick'
 import { Link, withRouter } from 'react-router'
-import scrollIntoView from 'scroll-iv'
+
 import sortBy from 'lodash/sortBy'
 
 import CloseIcon from 'react-icons/lib/fa/close'
@@ -50,10 +50,7 @@ export default class FilmDetail extends React.Component {
 
     chapters = sortBy(chapters, 'title')
     state = state === null ? {} : state
-    const { basePath, rowKey } = state
-
-    let rowElement = document.getElementById(rowKey)
-    if (rowElement) { scrollIntoView(rowElement) }
+    const { basePath } = state
 
     return (
       <Flex className={style.Container}>
