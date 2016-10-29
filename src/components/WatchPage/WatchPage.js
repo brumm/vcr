@@ -118,8 +118,12 @@ export default class WatchPage extends React.Component {
           >
             {media => ([
               <KeyHandler keyEventName='keydown' keyValue='Escape'
-                key='handler'
+                key='escape'
                 onKeyHandle={window.history.back}
+              />,
+              <KeyHandler keyEventName='keydown' keyValue='w'
+                key='w'
+                onKeyHandle={() => media.seekTo(media.duration * 0.3)}
               />,
 
               <Titlebar
