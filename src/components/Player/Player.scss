@@ -27,12 +27,22 @@
   transition: opacity 100ms linear;
 }
 
+.ProgressContainer {
+  position: relative;
+  height: 30px;
+}
+
 .Progress {
-  flex-grow: 1;
-  appearance: none;
   height: 10px;
   border-radius: 10px;
   box-shadow: 0 0 0 1px currentColor inset;
+}
+
+.ProgressPlayed {
+  position: absolute;
+  width: 100%;
+  appearance: none;
+  height: inherit;
 
   &::-webkit-progress-bar {
     background-color: transparent;
@@ -49,6 +59,14 @@
     background-color: transparent;
     box-shadow: 0 1px 0 white inset;
     background-image: linear-gradient(silver, white);
+  }
+}
+
+.ProgressLoaded {
+  composes: ProgressPlayed;
+  padding: 1px 0;
+  &::-webkit-progress-value {
+    opacity: 0.2;
   }
 }
 
