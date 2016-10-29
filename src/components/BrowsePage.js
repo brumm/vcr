@@ -10,6 +10,9 @@ import FilmList from 'components/FilmList'
 export default class BrowsePage extends React.Component {
 
   shouldComponentUpdate({ params: { filmType, filmId }}) {
+    if (filmType !== this.props.params.filmType) {
+      this.filmList.wrappedInstance.scrollToTop()
+    }
     return filmType !== this.props.params.filmType || filmId !== this.props.params.filmId
   }
 
@@ -30,6 +33,7 @@ export default class BrowsePage extends React.Component {
 
     return (
       <FilmList
+        ref={component => this.filmList = component}
         films={films}
         more={more}
         activeFilmId={filmId}

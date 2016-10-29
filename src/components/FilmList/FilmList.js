@@ -28,6 +28,10 @@ export default class FilmList extends React.Component {
     window.removeEventListener('resize', this.watchResize)
   }
 
+  scrollToTop() {
+    this.scrollContainer._reactInternalInstance._renderedComponent._hostNode.scrollTop = 0
+  }
+
   scrollIntoView(component) {
     if (component) {
       component._reactInternalInstance._renderedComponent._hostNode.scrollIntoView()
@@ -42,7 +46,7 @@ export default class FilmList extends React.Component {
     const { children, films = [], filmType, basePath, activeFilmId} = this.props
 
     return (
-      <Flex grow={1} direction='column' className={style.Container}>
+      <Flex ref={component => this.scrollContainer = component} grow={1} direction='column' className={style.Container}>
         {chunk(films, itemsPerRow).map((row, rowIndex) => {
           let rowActive = row.findIndex(({id}) => `${id}` === activeFilmId) !== -1
           let rowKey = `row-${rowIndex}`
