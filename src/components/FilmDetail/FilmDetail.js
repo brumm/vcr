@@ -63,12 +63,12 @@ export default class FilmDetail extends React.Component {
         </Flex>
 
         {chapters.length > 1 &&
-          <Flex direction='column' className={style.Episodes} grow={1} shrink={0}>
+          <Flex direction='column' className={style.Episodes} shrink={0}>
             {chapters.map(chapter => (
               <Link
                 style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }}
                 key={chapter.id}
-                to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title, chapters }}}
+                to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title, chapters, filmId }}}
               >
                 {chapter.title}
               </Link>
@@ -80,7 +80,7 @@ export default class FilmDetail extends React.Component {
           <Flex className={style.Slider} grow={1}>
               <Link
                 className={style.playLink}
-                to={{ pathname: `/watch/${chapters[0].id}`, state: { title } }}
+                to={{ pathname: `/watch/${chapters[0].id}`, state: { title, filmId } }}
               >
                 <PlayIcon className={style.playIcon} />
               </Link>

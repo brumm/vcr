@@ -23,7 +23,7 @@ export default class App extends React.Component {
     return (
       <Flex className={isWatching ? style.containerVideoMode : style.container} direction='column'>
         {!isWatching && <Titlebar
-          center={!isSearching && <Categories items={CATEGORIES} />}
+          center={!isSearching && <Categories pathname={pathname} items={CATEGORIES} />}
           right={!isWatching && <SearchInput defaultValue={searchTerm} />}
         />}
 

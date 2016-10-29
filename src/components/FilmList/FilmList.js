@@ -2,6 +2,7 @@ import React from 'react'
 import Flex from 'flex-component'
 import chunk from 'lodash/chunk'
 import { Link } from 'react-router'
+import { inject, observer } from 'mobx-react'
 import scrollIntoView from 'scroll-iv'
 
 import Poster from 'components/Poster'
@@ -9,16 +10,14 @@ import Poster from 'components/Poster'
 import { posterWidth, itemMargin } from 'variables.scss'
 import style from './FilmList.scss'
 
+@inject('appState') @observer
 export default class FilmList extends React.Component {
 
   state = {
     width: window.innerWidth
   }
 
-  watchResize = ::this.watchResize
-  watchResize() {
-    this.setState({ width: window.innerWidth })
-  }
+  watchResize = () => this.setState({ width: window.innerWidth })
 
   componentDidMount() {
     window.addEventListener('resize', this.watchResize)
@@ -56,6 +55,7 @@ export default class FilmList extends React.Component {
               <Flex id={rowKey} justifyContent='flex-start' shrink={0} className={style.Row}>
                 {row.map(({ id, title, poster }) => {
                   let active = `${id}` === activeFilmId
+                  let isWatched = this.props.appState.isWatched(id)
 
                   return (
                     <Link key={id}
@@ -66,10 +66,22 @@ export default class FilmList extends React.Component {
                       className={style.MovieItem}
                       activeClassName={style.MovieItemActive}
                     >
-                      <Poster url={poster} shrink={rowActive} active={active} />
+                      <Poster url={poster} shrink={rowActive} active={active}>
+                        {isWatched &&
+                          <div className={style.Progress}>
+                            <progress
+                              className={style.ProgressWatched}
+                              max={this.props.appState.appState.films[id].duration}
+                              value={this.props.appState.appState.films[id].currentTime}
+                            />
+                          </div>
+                        }
+                      </Poster>
                       {!active &&
                         <Flex alignItems='center' className={style.Title}>
-                          <div className={style.ellipsis}>{title}</div>
+                          <div className={style.ellipsis}>
+                            {title}
+                          </div>
                         </Flex>
                       }
                     </Link>

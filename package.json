@@ -23,6 +23,8 @@
     "halogen": "^0.2.0",
     "legit-image": "^0.1.4",
     "lodash": "^4.15.0",
+    "mobx": "^2.5.1",
+    "mobx-react": "^3.5.6",
     "node-fetch": "^1.6.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",

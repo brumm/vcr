@@ -62,7 +62,8 @@ export default class Player extends React.Component {
   }
 
   render() {
-    const { Player, media, children } = this.props
+    const { Player, media, children, _onTimeUpdate } = this.props
+    _onTimeUpdate(media)
     return (
       <div className={style.Player}>
         {Player}

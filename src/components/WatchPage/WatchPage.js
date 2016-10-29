@@ -2,7 +2,9 @@ import React from 'react'
 import Flex from 'flex-component'
 import { hashHistory } from 'react-router'
 import merge from 'lodash/merge'
+import throttle from 'lodash/throttle'
 import NextIcon from 'react-icons/lib/fa/step-forward'
+import PreviousIcon from 'react-icons/lib/fa/step-backward'
 import KeyHandler from 'react-key-handler'
 
 import { Media, controls } from 'react-media-player'
@@ -19,6 +21,7 @@ import Loader from 'components/Loader'
 import BackLink from 'components/BackLink'
 import Titlebar from 'components/Titlebar'
 import Pinky from 'react-pinky-promise'
+import { inject, observer } from 'mobx-react'
 
 import { decryptBlob } from 'utils/irpc'
 import { fetchStream } from 'utils/api'
@@ -38,6 +41,17 @@ const Next = ({ nextChapter: { id, title }, chapters }) => (
   </button>
 )
 
+const Previous = ({ previousChapter: { id, title }, chapters }) => (
+  <button className={style.ControlButton} onClick={() => hashHistory.replace({
+    pathname: `/watch/${id}`,
+    state: { title, chapters }
+  })}>
+    <PreviousIcon />
+  </button>
+)
+
+@inject('appState')
+@observer
 export default class WatchPage extends React.Component {
   state = {
     streamIndex: 0
@@ -64,14 +78,21 @@ export default class WatchPage extends React.Component {
     return parseLink(url, parser)
   }
 
+  persistTime = throttle(({ currentTime, duration }) => (
+    this.props.appState.setTimeFor(this.props.location.state.filmId, { currentTime, duration })
+  ), 500)
+
   render() {
-    const { streams, location: { state }, params: { chapterId }} = this.props
+    const { appState, streams, location: { state }, params: { chapterId }} = this.props
     const { streamIndex } = this.state
     const stream = this.props.streams[streamIndex]
 
     if (state.chapters) {
       var nextChapter = state.chapters[
         state.chapters.findIndex(({ id }, index) => id == chapterId) + 1
+      ]
+      var previousChapter = state.chapters[
+        state.chapters.findIndex(({ id }, index) => id == chapterId) - 1
       ]
     }
 
@@ -86,9 +107,15 @@ export default class WatchPage extends React.Component {
 
     return (
       <Pinky promise={fetchPromise}>
-        {({resolved}) => resolved ? (
+        {({ resolved }) => resolved ? (
 
-          <Player src={resolved} vendor='video' onError={console.error} autoPlay>
+          <Player
+            src={`${resolved}#t=${appState.appState.films[state.filmId] && appState.appState.films[state.filmId].currentTime}`}
+            vendor='video'
+            onError={console.error}
+            _onTimeUpdate={this.persistTime}
+            autoPlay
+          >
             {media => ([
               <KeyHandler keyEventName='keydown' keyValue='Escape'
                 key='handler'
@@ -110,6 +137,7 @@ export default class WatchPage extends React.Component {
 
               <Flex key='bottom-controls' className={style.ControlsBottom} alignItems='center'>
                 <PlayPause />
+                {state.chapters && previousChapter && <Previous previousChapter={previousChapter} chapters={state.chapters} />}
                 <Progress />
                 {state.chapters && nextChapter && <Next nextChapter={nextChapter} chapters={state.chapters} />}
                 <CurrentTime style={{ minWidth: 50, textAlign: 'center' }} />

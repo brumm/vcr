@@ -45,7 +45,8 @@ function createWindow () {
     acceptFirstMouse: true,
     frame: false,
     webPreferences: {
-      webSecurity: false
+      webSecurity: false,
+      experimentalFeatures: true
     },
     show: false
   })

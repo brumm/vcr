@@ -24,6 +24,24 @@
   composes: MovieItem;
 }
 
+.Progress {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  width: $poster-width - 20;
+  height: 10px;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px #fff inset,
+    0 0 0 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.ProgressWatched {
+  composes: ProgressPlayed from "../Player/Player.scss";
+}
+
 .Title {
   .ellipsis {
     max-width: $poster-width;

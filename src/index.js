@@ -2,10 +2,11 @@ import 'css/global'
 import React from 'react'
 import { render } from 'react-dom'
 import Flex from 'flex-component'
-
+import { Provider } from 'mobx-react'
 import { Router, Route, IndexRoute, IndexRedirect, Redirect, hashHistory } from 'react-router'
 import AsyncProps from 'components/AsyncProps'
 
+import appState from './appState'
 import page from 'utils/page'
 
 import App        from 'components/App'
@@ -28,24 +29,26 @@ const renderLoading = () => (
 )
 
 render(
-  <Router history={hashHistory} render={props => <AsyncProps {...props} renderLoading={renderLoading} />}>
-    <Route path="/" component={App}>
+  <Provider appState={appState}>
+    <Router history={hashHistory} render={props => <AsyncProps {...props} renderLoading={renderLoading} />}>
+      <Route path="/" component={App}>
 
-      <IndexRedirect to="/browse/movie" />
+        <IndexRedirect to="/browse/movie/popular" />
 
-      <Route path="/search/:searchTerm" component={SearchPage}>
-        <Route path=":filmId" component={FilmDetail} />
+        <Route path="/search/:searchTerm" component={SearchPage}>
+          <Route path=":filmId" component={FilmDetail} />
+        </Route>
+
+        <Route path="/browse/:filmType/:sortBy" component={BrowsePage}>
+          <Route path=":filmId" component={FilmDetail} />
+        </Route>
+
+        <Route path="/watch/:chapterId" component={WatchPage} />
+
       </Route>
 
-      <Route path="/browse/:filmType" component={BrowsePage}>
-        <Route path=":filmId" component={FilmDetail} />
-      </Route>
-
-      <Route path="/watch/:chapterId" component={WatchPage} />
-
-    </Route>
-
-    <Redirect from="*" to="/" />
-  </Router>,
+      <Redirect from="*" to="/" />
+    </Router>
+  </Provider>,
   document.querySelector('#app')
 )

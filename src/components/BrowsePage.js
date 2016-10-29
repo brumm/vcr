@@ -9,14 +9,18 @@ import FilmList from 'components/FilmList'
 
 export default class BrowsePage extends React.Component {
 
-  shouldComponentUpdate({ params: { filmType, filmId }}) {
+  shouldComponentUpdate({ params: { filmType, filmId, sortBy }}) {
     if (filmType !== this.props.params.filmType) {
       this.filmList.wrappedInstance.scrollToTop()
     }
-    return filmType !== this.props.params.filmType || filmId !== this.props.params.filmId
+    return (
+      filmType !== this.props.params.filmType ||
+      sortBy !== this.props.params.sortBy ||
+      filmId !== this.props.params.filmId
+    )
   }
 
-  @promised static loadProps = ({ filmType }, { query: { sortBy = 'popular', page = 1 }}) => (
+  @promised static loadProps = ({ filmType, sortBy }, { query: { page = 1 }}) => (
     fetchMovies({filmType, page, sortBy}).then(
       ({ films, more }) => ({ filmType, films, more })
     )
@@ -28,7 +32,7 @@ export default class BrowsePage extends React.Component {
       filmType,
       films,
       more,
-      params: { filmId }
+      params: { filmId, sortBy }
     } = this.props
 
     return (
@@ -37,7 +41,7 @@ export default class BrowsePage extends React.Component {
         films={films}
         more={more}
         activeFilmId={filmId}
-        basePath={`/browse/${filmType}`}
+        basePath={`/browse/${filmType}/${sortBy}`}
       >
         {children}
       </FilmList>

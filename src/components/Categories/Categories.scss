@@ -4,25 +4,34 @@
   overflow: visible;
 }
 
-.link {
-  color: $darker-highlight-color;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 1);
+.LinkContainer {
   padding: 6px 15px;
   margin: 0 5px;
-
-  &:hover {
-    color: $highlight-color;
-  }
 }
 
-.linkActive {
-  color: $highlight-color;
-
+.LinkContainerActive {
+  composes: LinkContainer;
   border-radius: 200px;
   background-color: rgba(0, 0, 0, 0.4);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.05),
     1px 1px 3px rgba(0, 0, 0, 0.3) inset;
+}
 
+.link {
+  color: $darker-highlight-color;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 1);
+
+  &:hover {
+    color: $highlight-color;
+  }
+
+  & + & {
+    margin-left: 10px;
+  }
+}
+
+.linkActive {
   composes: link;
+  color: $highlight-color;
 }
