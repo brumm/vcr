@@ -3,6 +3,7 @@ import Flex from 'flex-component'
 import { hashHistory } from 'react-router'
 import merge from 'lodash/merge'
 import NextIcon from 'react-icons/lib/fa/step-forward'
+import KeyHandler from 'react-key-handler'
 
 import { Media, controls } from 'react-media-player'
 const { CurrentTime } = controls
@@ -89,6 +90,11 @@ export default class WatchPage extends React.Component {
 
           <Player src={resolved} vendor='video' onError={console.error} autoPlay>
             {media => ([
+              <KeyHandler keyEventName='keydown' keyValue='Escape'
+                key='handler'
+                onKeyHandle={window.history.back}
+              />,
+
               <Titlebar
                 floating
                 key='titlebar'
