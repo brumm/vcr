@@ -6,6 +6,8 @@ $item-margin: 10px;
 $highlight-color: gold;
 $darker-highlight-color: darken($highlight-color, 30%);
 
+$muted-color: #666;
+
 $app-background-color: #161616;
 
 @function strip-units($value) {

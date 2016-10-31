@@ -10,7 +10,10 @@ import PlayIcon from 'react-icons/lib/fa/play'
 
 import BackLink from 'components/BackLink'
 import { fetchDetail } from 'utils/api'
+import { fetchEpisodeDetails } from 'utils/showDataApi'
 import promised from 'utils/promised'
+
+import Chapters from 'components/Chapters'
 
 import { highlightColor } from 'variables.scss'
 import style from './FilmDetail.scss'
@@ -24,12 +27,28 @@ const settings = {
   autoplay: true,
 }
 
+const SimpleChapterList = ({ chapters }) => (
+  <Flex>
+    {chapters.map(chapter => (
+      <Link
+        style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }}
+        key={chapter.id}
+        to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title, chapters }}}
+      >
+        {chapter.title}
+      </Link>
+    ))}
+  </Flex>
+)
+
 @withRouter
 export default class FilmDetail extends React.Component {
 
-  @promised static loadProps = ({ filmId }) => (
+  @promised static loadProps = ({ filmId, filmType }) => (
     fetchDetail(filmId).then(
       movie => ({ ...movie, filmId })
+    ).then(
+      movie => (filmType === 'show' ? fetchEpisodeDetails(movie) : movie)
     )
   )
 
@@ -42,6 +61,7 @@ export default class FilmDetail extends React.Component {
       title,
       description,
       poster,
+      hasSeasons,
       images,
       chapters,
       filmId,
@@ -64,15 +84,11 @@ export default class FilmDetail extends React.Component {
 
         {chapters.length > 1 &&
           <Flex direction='column' className={style.Episodes} shrink={0}>
-            {chapters.map(chapter => (
-              <Link
-                style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }}
-                key={chapter.id}
-                to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title, chapters, filmId }}}
-              >
-                {chapter.title}
-              </Link>
-            ))}
+            {
+              hasSeasons
+              ? <Chapters hasSeasons={hasSeasons} chapters={chapters} />
+              : <SimpleChapterList chapters={chapters} />
+            }
           </Flex>
         }
 
