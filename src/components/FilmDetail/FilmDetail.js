@@ -28,7 +28,7 @@ const settings = {
 }
 
 const SimpleChapterList = ({ chapters }) => (
-  <Flex>
+  <Flex direction="column" shrink={0}>
     {chapters.map(chapter => (
       <Link
         style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }}
