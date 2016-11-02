@@ -27,29 +27,16 @@ const settings = {
   autoplay: true,
 }
 
-const SimpleChapterList = ({ chapters }) => (
-  <Flex direction="column" shrink={0}>
-    {chapters.map(chapter => (
-      <Link
-        style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }}
-        key={chapter.id}
-        to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title, chapters }}}
-      >
-        {chapter.title}
-      </Link>
-    ))}
-  </Flex>
-)
-
 @withRouter
 export default class FilmDetail extends React.Component {
 
   @promised static loadProps = ({ filmId, filmType }) => (
-    fetchDetail(filmId).then(
-      movie => ({ ...movie, filmId })
-    ).then(
-      movie => (filmType === 'show' ? fetchEpisodeDetails(movie) : movie)
-    )
+    fetchDetail(filmId)
+      .then(movie => (
+        filmType !== 'movie'
+          ? fetchEpisodeDetails(movie)
+          : movie
+      ))
   )
 
   shouldComponentUpdate({ id }) {
@@ -71,6 +58,7 @@ export default class FilmDetail extends React.Component {
     chapters = sortBy(chapters, 'title')
     state = state === null ? {} : state
     const { basePath } = state
+    const isShow = chapters.length > 1
 
     return (
       <Flex className={style.Container}>
@@ -82,17 +70,9 @@ export default class FilmDetail extends React.Component {
           <BackLink label={<CloseIcon/>} path={basePath} className={style.closeIcon} />
         </Flex>
 
-        {chapters.length > 1 &&
-          <Flex direction='column' className={style.Episodes} shrink={0}>
-            {
-              hasSeasons
-              ? <Chapters hasSeasons={hasSeasons} chapters={chapters} />
-              : <SimpleChapterList chapters={chapters} />
-            }
-          </Flex>
-        }
-
-        {chapters.length === 1 &&
+        {isShow ? (
+          <Chapters hasSeasons={hasSeasons} chapters={chapters} />
+        ) : (
           <Flex className={style.Slider} grow={1}>
               <Link
                 className={style.playLink}
@@ -101,13 +81,13 @@ export default class FilmDetail extends React.Component {
                 <PlayIcon className={style.playIcon} />
               </Link>
 
-            {chapters.length === 1 && images && (
+            {images && (
               <Slider {...settings}>
                 {images.map((image, index) => <img className={style.Image} key={index} src={image} referrerPolicy='no-referrer' />)}
               </Slider>
             )}
           </Flex>
-        }
+        )}
       </Flex>
     )
   }

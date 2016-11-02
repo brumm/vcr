@@ -101,7 +101,7 @@ export default class WatchPage extends React.Component {
         if (streamIndex !== streams.length - 1) {
           this.setState({ streamIndex: streamIndex + 1 })
         } else {
-          console.error('no working stream');
+          console.error('no working stream')
         }
       })
 

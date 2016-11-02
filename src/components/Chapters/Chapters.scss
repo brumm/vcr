@@ -1,27 +1,46 @@
 @import "~variables";
 
+.ChaptersContainer {
+  overflow-y: auto;
+  padding-bottom: 20px;
+  padding-right: 20px;
+}
+
 .SeasonHeader {
- padding: $item-margin*2 0 $item-margin;
+ padding: $item-margin * 2 0 $item-margin;
  color: $highlight-color;
 }
 
-.ChapterRow {
-  margin-bottom: $item-margin;
+.EpisodeContainer {
+  overflow: visible;
 }
 
-.ChapterRowEpisode {
+.Episode {
+  min-height: $item-margin * 3;
+  width: 100%;
+  overflow: visible;
+  display: inline-flex;
+  align-items: center;
+}
+
+.EpisodeNumber {
+  text-align: right;
+  min-width: 30px;
   margin-right: $item-margin;
 }
 
-.ChapterRowRuntime {
+.EpisodeTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: auto;
+}
+
+.EpisodeRuntime {
+  margin-left: $item-margin * 3;
   color: $muted-color;
   font-size: small;
 }
 
-.ChapterRowSummary {
-  max-width: 1000px;
-  color: $muted-color;
-  padding: $item-margin/2 0;
-  line-height: 1.3;
-  font-size: small;
+.Episodes {
 }

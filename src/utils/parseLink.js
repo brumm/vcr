@@ -53,7 +53,7 @@ export default function parseLink(url, {
   p: subParser,
 }) {
   console.info('[parseLink]', { url, linkType, regEx, replacement, decodeType, resultIndex, matchGroup, subParser })
-  if (resultIndex !== -1) { console.error('resultIndex was not -1'); }
+  if (resultIndex !== -1) { console.error('resultIndex was not -1') }
 
   return LinkType[linkType](url)
     .then(data => replace({data, regEx, replacement, matchGroup}))

@@ -6,7 +6,7 @@ export default class Cache {
 
   has(key) {
     if (!this.store.has(key)) {
-      console.info('cache empty', key);
+      console.info('cache empty', key)
       return false
     }
 

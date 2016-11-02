@@ -1,39 +1,62 @@
-const SEASON_REGEXP = /^s(\d+)e(\d+)$/gi;
+import Cache from 'utils/cache'
+const cache = new Cache(1000 * 60 * 5)
+
+const SEASON_REGEXP = /(?:s(?:eason)?(?:\s)?(\d+)(?:\s+)?)?e(?:pisode)?(?:\s)?(\d+)/i
 
 const addSeasonToChapter = chapter => {
-  let key = chapter.title;
-  let season, episode;
-  const matches = (/s(\d+)e(\d+)/gi).exec(chapter.title);
-  if (matches) {
-    season = parseInt(matches[1], 10);
-    episode = parseInt(matches[2], 10);
-    key = `${season}-${episode}`;
+  const [_, season = 1, number] = chapter.title.match(SEASON_REGEXP) || []
+
+  return {
+    ...chapter,
+    season: parseInt(season, 10) || undefined,
+    number: parseInt(number, 10) || undefined,
   }
-  return { ...chapter, season, episode };
 }
 
-const fetchShowEpisodes = showTitle =>
-  window.fetch(`http://api.tvmaze.com/singlesearch/shows?q=${showTitle}&embed=episodes`)
-    .then(raw => raw.json()) // Get json body
-    .then(({ _embedded: { episodes } }) => episodes) // only get episodes
-    .then(data => data.reduce((prev, e) => ({ ...prev, [`${e.season}-${e.number}`]: e }), {}))
-    .catch(error => { console.error(error); return {}; });
+const fetchShowEpisodes = showTitle => {
+  const url = `http://api.tvmaze.com/singlesearch/shows?q=${showTitle}&embed=episodes`
+  let promise = cache.has(url)
+    ? Promise.resolve(cache.get(url))
+    : window.fetch(url)
+      .then(response => response.json())
+      .then(json => {
+        cache.set(url, json)
+        return json
+      })
+
+  return promise
+    .then(({ _embedded: { episodes } }) => episodes)
+    .then(episodes => (
+      episodes.reduce((episodes, { id, ...episode }) => ({
+        ...episodes,
+        [`${episode.season}-${episode.number}`]: episode
+      }), {})
+    ))
+    .catch(error => console.error(error) || {})
+}
 
 export function fetchEpisodeDetails(movie) {
-  const { chapters, title } = movie;
-  const hasSeasons = chapters.some(c => SEASON_REGEXP.test(c.title));
+  const { chapters, title } = movie
+  const hasSeasons = chapters.some(({ title }) => SEASON_REGEXP.test(title))
 
-  // Test if there are any detectable seasons
+  // bail if there aren't any detectable seasons
   if (!hasSeasons) {
-    console.warn('Could not find any seasons for movie', title);
-    return { ...movie, hasSeasons: false };
+    console.warn('Could not find any seasons for movie', title)
+    return { ...movie, hasSeasons }
   }
 
-  const chaptersWithSeason = chapters.map(addSeasonToChapter);
+  const chaptersWithSeason = chapters.map(addSeasonToChapter)
+
   return fetchShowEpisodes(title)
-    .then(episodes => chaptersWithSeason.map(chapter => ({
-        ...chapter,
-        ...episodes[chapter.season ? `${chapter.season}-${chapter.episode}` : chapter.title]
-    })))
-    .then(chapters => ({ ...movie, hasSeasons: true, chapters }))
+    .then(episodes => chaptersWithSeason.map(chapter => {
+      return ({
+          ...chapter,
+          ...episodes[
+            chapter.season
+              ? `${chapter.season}-${chapter.number}`
+              : chapter.title
+          ]
+      })
+    }))
+    .then(chapters => ({ ...movie, hasSeasons, chapters }))
 }

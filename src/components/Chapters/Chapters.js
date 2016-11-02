@@ -5,45 +5,49 @@ import _ from 'lodash'
 
 import style from './Chapters.scss'
 
-const ChapterRow = ({ episode, name, runtime, title }) => (
-  <Flex grow={1} className={style.ChapterRow}>
-    <Flex grow={0} shrink={0} className={style.ChapterRowEpisode}>{episode}.</Flex>
-    <Flex grow={1}>
-      {name || title}
-    </Flex>
-    {
-      runtime &&
-      <Flex grow={0} shrink={0} className={style.ChapterRowRuntime}>{runtime}min</Flex>
-    }
-  </Flex>
-);
+const Episode = ({ id, number, name, runtime, title, chapters }) => (
+  <li key={id} className={style.EpisodeContainer}>
+    <Link
+      className={style.Episode}
+      to={{ pathname: `/watch/${id}`, state: { title: title, chapters }}}
+    >
+      {number && <div className={style.EpisodeNumber}>{number}.</div>}
+      <span className={style.EpisodeTitle}>{name || title}</span>
 
-const SeasonHeader = ({ season }) =>
-  <h2 className={style.SeasonHeader}>Season: {season}</h2>;
+      {runtime &&
+        <span className={style.EpisodeRuntime}>{runtime}min</span>
+      }
+    </Link>
+  </li>
+)
 
-export default ({ chapters }) => {
-  const seasons = _.groupBy(chapters, 'season');
+const SeasonHeader = ({ season }) => (
+  <h2 className={style.SeasonHeader}>Season {season}</h2>
+)
+
+export default ({ hasSeasons, chapters }) => {
+  const seasons = _.groupBy(chapters, 'season')
 
   return (
-    <Flex direction="column" shrink={0}>
-      {
+    <div className={style.ChaptersContainer}>
+      {hasSeasons ? (
         Object.keys(seasons).map(season => (
-          <Flex direction='column'>
+          <div key={season}>
             <SeasonHeader season={season} />
-            {
-              seasons[season].map(chapter => (
-                <Link
-                  style={{ display: 'flex', alignItems: 'center', flexShrink: 0, minHeight: 25 }}
-                  key={chapter.id}
-                  to={{ pathname: `/watch/${chapter.id}`, state: { title: chapter.title, chapters }}}
-                >
-                  <ChapterRow {...chapter} />
-                </Link>
-              ))
-            }
-          </Flex>
+            <ul className={style.Episodes}>
+              {seasons[season].map(chapter => (
+                <Episode key={chapter.id} {...chapter} chapters={chapters} />
+              ))}
+            </ul>
+          </div>
         ))
-      }
-    </Flex>
+      ) : (
+        <ul>
+          {chapters.map(chapter => (
+            <Episode key={chapter.id} {...chapter} chapters={chapters} />
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }

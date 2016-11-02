@@ -32,7 +32,7 @@ function createWindow () {
   let mainWindowState = windowStateKeeper({
     defaultWidth: width * 0.9,
     defaultHeight: height * 0.9
-  });
+  })
 
   mainWindow = new BrowserWindow({
     width: mainWindowState.width,
