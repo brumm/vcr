@@ -1,6 +1,6 @@
 {
   "name": "vcr",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Plays movies",
   "main": "dist/index.js",
   "private": true,
