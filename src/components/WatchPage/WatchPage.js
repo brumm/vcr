@@ -155,6 +155,11 @@ export default class WatchPage extends React.Component {
           </Player>
         ) : (
           <Flex className={style.Loading} alignItems='center' justifyContent='center'>
+            <KeyHandler keyEventName='keydown' keyValue='Escape'
+              key='escape'
+              onKeyHandle={window.history.back}
+            />
+
             <Titlebar
               floating
               key='titlebar'
