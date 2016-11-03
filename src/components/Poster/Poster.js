@@ -1,5 +1,33 @@
 import React from 'react'
-import Image from 'legit-image'
+
+class Image extends React.Component {
+
+  defaultProps = {
+    speed: 1
+  }
+
+  state = {
+    opacity: 0
+  }
+
+  show = () => this.setState({ opacity: 1 })
+
+  render(){
+    let { style, ...otherProps } = this.props
+
+    return (
+      <img
+        {...otherProps}
+        style={{ ...style,
+          transition: `opacity ${this.props.speed || 1}s`,
+          opacity: this.state.opacity,
+        }}
+        onLoad={this.show}
+        onError={this.show}
+      />
+    )
+  }
+}
 
 import style from './Poster.scss'
 
