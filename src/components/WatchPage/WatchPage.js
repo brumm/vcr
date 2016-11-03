@@ -163,6 +163,9 @@ export default class WatchPage extends React.Component {
             <Titlebar
               floating
               key='titlebar'
+              left={<select className={style.Quality} value={streamIndex} onChange={({ target: { value }}) => this.setState({ streamIndex: +value })}>
+                {streams.map((stream, index) => <option key={index} value={index}>{stream.quality}</option>)}
+              </select>}
               center={`${state.title} (Trying stream ${streamIndex + 1} of ${streams.length})`}
               right={<BackLink className={style.Quality} label='Close' />}
             />
