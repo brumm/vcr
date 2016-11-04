@@ -32,6 +32,7 @@ export default class FilmDetail extends React.Component {
 
   @promised static loadProps = ({ filmId, filmType }) => (
     fetchDetail(filmId)
+      .then(movie => ({ ...movie, filmId }))
       .then(movie => (
         filmType !== 'movie'
           ? fetchEpisodeDetails(movie)
